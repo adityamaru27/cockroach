@@ -16,6 +16,7 @@
 #include "comparator.h"
 #include "encoding.h"
 #include "protos/roachpb/errors.pb.h"
+#include <iostream>
 
 using namespace cockroach;
 
@@ -53,6 +54,8 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
     sanity_iter.reset(DBNewIter(engine, nontimebound_opts));
   }
   iter.reset(DBNewIter(engine, opts));
+
+  std::cout << "CONSTRUCTED" << std::endl;
 }
 
 DBIncrementalIterator::~DBIncrementalIterator() {}
