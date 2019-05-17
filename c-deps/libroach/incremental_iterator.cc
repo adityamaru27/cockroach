@@ -13,10 +13,10 @@
 // permissions and limitations under the License.
 
 #include "incremental_iterator.h"
+#include <iostream>
 #include "comparator.h"
 #include "encoding.h"
 #include "protos/roachpb/errors.pb.h"
-#include <iostream>
 
 using namespace cockroach;
 
@@ -29,6 +29,7 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
       start(start),
       end(end),
       write_intent(write_intent) {
+  std::cout << "STARTING" << std::endl;
 
   sanity_iter.reset(NULL);
 
@@ -36,6 +37,8 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
   start_time.set_logical(start.logical);
   end_time.set_wall_time(end.wall_time);
   end_time.set_logical(end.logical);
+
+  std::cout << "TIME STUFF" << std::endl;
 
   // sanity_iter is only relevant if a time-bound iterator is required.
   //
@@ -49,6 +52,8 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
   if (!EmptyTimestamp(opts.min_timestamp_hint) || !EmptyTimestamp(opts.max_timestamp_hint)) {
     assert(!EmptyTimestamp(opts.min_timestamp_hint));
     assert(!EmptyTimestamp(opts.max_timestamp_hint));
+    std::cout << "IN TIME" << std::endl;
+
     DBIterOptions nontimebound_opts;
     nontimebound_opts.upper_bound = opts.upper_bound;
     sanity_iter.reset(DBNewIter(engine, nontimebound_opts));
