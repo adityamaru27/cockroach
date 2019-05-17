@@ -2583,10 +2583,14 @@ func cStringToGoString(s C.DBString) string {
 
 func cStringToGoBytes(s C.DBString) []byte {
 	if s.data == nil {
+		fmt.Printf("Empty cstring")
 		return nil
 	}
+	fmt.Printf("Tring to cstring cast")
 	result := gobytes(unsafe.Pointer(s.data), int(s.len))
 	C.free(unsafe.Pointer(s.data))
+	fmt.Printf("Finsihed cstring cast")
+
 	return result
 }
 
@@ -3230,6 +3234,7 @@ func ExportToSst(
 		}
 		return nil, 0, err
 	}
+	fmt.Printf("no error")
 
 	return cStringToGoBytes(data), int64(dataSize), nil
 }
