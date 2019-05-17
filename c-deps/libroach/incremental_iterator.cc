@@ -56,6 +56,8 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
 
     DBIterOptions nontimebound_opts;
     nontimebound_opts.upper_bound = opts.upper_bound;
+    std::cout << "AFTER TIME" << std::endl;
+
     sanity_iter.reset(DBNewIter(engine, nontimebound_opts));
   }
   iter.reset(DBNewIter(engine, opts));
