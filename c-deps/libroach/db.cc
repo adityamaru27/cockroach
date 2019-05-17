@@ -925,6 +925,8 @@ DBStatus DBExportToSst(DBKey start, DBKey end, bool export_all_revisions, DBIter
     return status;
   }
 
+  std::cout << "Entered the export method" << std::endl;
+
   *entries = 0;
   *data_size = 0;
 
@@ -939,6 +941,8 @@ DBStatus DBExportToSst(DBKey start, DBKey end, bool export_all_revisions, DBIter
     } else if (!state.valid || kComparator.Compare(iter.key(), EncodeKey(end)) >= 0) {
       break;
     }
+
+    std::cout << "Valid iteration not broken yet" << std::endl;
 
     rocksdb::Slice decoded_key;
     int64_t wall_time = 0;
@@ -956,6 +960,8 @@ DBStatus DBExportToSst(DBKey start, DBKey end, bool export_all_revisions, DBIter
       continue;
     }
 
+    std::cout << "Not skipping any deletes" << std::endl;
+
     // Insert key into sst and update statistics.
     status = DBSstFileWriterAddRaw(writer, iter.key(), iter.value());
     if (status.data != NULL) {
@@ -964,6 +970,8 @@ DBStatus DBExportToSst(DBKey start, DBKey end, bool export_all_revisions, DBIter
     }
     (*entries)++;
     (*data_size) += iter.key().size() + iter.value().size();
+
+    std::cout << "Data has been updated." << std::endl;
   }
 
   if (*entries == 0) {
