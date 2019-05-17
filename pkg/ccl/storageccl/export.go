@@ -136,7 +136,7 @@ func evalExport(
 		return result.Result{}, err
 	}
 
-	if dataSize == 0 {
+	if dataSize == 0 || data == nil {
 		reply.Files = []roachpb.ExportResponse_File{}
 		return result.Result{}, nil
 	}
