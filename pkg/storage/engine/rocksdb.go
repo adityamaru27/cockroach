@@ -3217,6 +3217,7 @@ func ExportToSst(
 
 	err := statusToError(C.DBExportToSst(goToCKey(start), goToCKey(end), C.bool(exportAllRevisions),
 		goToCIterOptions(io), cdbEngine, &data, &entries, &dataSize, &intentErr))
+	fmt.Printf("returned")
 
 	if err != nil {
 		if err.Error() == "WriteIntentError" {

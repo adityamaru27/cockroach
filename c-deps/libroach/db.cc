@@ -975,8 +975,8 @@ DBStatus DBExportToSst(DBKey start, DBKey end, bool export_all_revisions, DBIter
   }
 
   if (*entries == 0) {
-    std::cout << "EMPTY" << std::endl;
     DBSstFileWriterClose(writer);
+    std::cout << "EMPTY" << std::endl;
     return kSuccess;
   }
 
