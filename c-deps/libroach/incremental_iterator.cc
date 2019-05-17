@@ -31,8 +31,6 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
       write_intent(write_intent) {
   std::cout << "STARTING" << std::endl;
 
-  sanity_iter.reset(NULL);
-
   start_time.set_wall_time(start.wall_time);
   start_time.set_logical(start.logical);
   end_time.set_wall_time(end.wall_time);
@@ -54,11 +52,13 @@ DBIncrementalIterator::DBIncrementalIterator(DBEngine* engine, DBIterOptions opt
     assert(!EmptyTimestamp(opts.max_timestamp_hint));
     std::cout << "IN TIME" << std::endl;
 
-    DBIterOptions nontimebound_opts;
+    DBIterOptions nontimebound_opts = DBIterOptions{};
     nontimebound_opts.upper_bound = opts.upper_bound;
     std::cout << "AFTER TIME" << std::endl;
 
     sanity_iter.reset(DBNewIter(engine, nontimebound_opts));
+  } else {
+    sanity_iter.reset(NULL);
   }
   iter.reset(DBNewIter(engine, opts));
 

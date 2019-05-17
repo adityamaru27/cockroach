@@ -1,0 +1,7 @@
+Running make with -j8
+GOPATH set to /Users/adityamaru/go
+Scanning dependencies of target roach
+[  2%] Building CXX object CMakeFiles/roach.dir/incremental_iterator.cc.o
+[  4%] Linking CXX static library libroach.a
+GOFLAGS= go test  -tags ' make x86_64_apple_darwin18.5.0' -ldflags '-X github.com/cockroachdb/cockroach/pkg/build.typ=development -extldflags "" -X "github.com/cockroachdb/cockroach/pkg/build.tag=v19.2.0-alpha.00000000-390-gfbc63533af-dirty" -X "github.com/cockroachdb/cockroach/pkg/build.rev=fbc63533af12072d3c07cf378a81fb601bf074ae" -X "github.com/cockroachdb/cockroach/pkg/build.cgoTargetTriple=x86_64-apple-darwin18.5.0"  ' -run "TestChangefeed*"  -timeout 12m ./pkg/ccl/changefeedccl 
+ok  	github.com/cockroachdb/cockroach/pkg/ccl/changefeedccl	42.580s
